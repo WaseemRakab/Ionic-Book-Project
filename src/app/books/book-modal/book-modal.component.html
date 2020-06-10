@@ -1,0 +1,64 @@
+<ion-header translucent class="ion-text-center">
+    <ion-toolbar>
+        <ion-title>
+            {{editMode ? 'Edit Book' : 'Create New Book'}}
+        </ion-title>
+        <ion-buttons slot="primary">
+            <ion-button (click)="closeModal()">
+                <ion-icon slot="icon-only" size="large"
+                          name="close-circle-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+    <form [formGroup]="bookForm" (ngSubmit)="submitBook()">
+        <ion-item>
+            <ion-label position="floating">Book Name
+                <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-input type="text" formControlName="bookName"></ion-input>
+            <small *ngIf="errorHandlingInput('bookName', 'required')">
+                Book Name is required!
+            </small>
+            <small *ngIf="errorHandlingInput('bookName', 'minlength')">
+                Book Name must contain at least 3 characters!
+            </small>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">
+                Book Author
+                <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-input type="text" formControlName="bookAuthor"></ion-input>
+            <small *ngIf="errorHandlingInput('bookAuthor', 'required')">
+                Book Author is required!
+            </small>
+            <small *ngIf="errorHandlingInput('bookAuthor', 'minlength')">
+                Book Author must contain at least 5 characters!
+            </small>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">Book Content
+                <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-textarea [rows]="10" formControlName="bookContent"></ion-textarea>
+            <small *ngIf="errorHandlingInput('bookContent', 'required')">
+                Book Content is required!
+            </small>
+            <small *ngIf="errorHandlingInput('bookContent', 'minlength')">
+                Book Content must contain at least 10 characters!
+            </small>
+            <small *ngIf="errorHandlingInput('bookContent', 'maxlength')">
+                Book Content max characters is 500!
+            </small>
+        </ion-item>
+        <ion-item-divider></ion-item-divider>
+        <div class="ion-padding">
+            <ion-button expand="block" type="submit" class="ion-no-margin" color="secondary"
+                        [disabled]="bookForm.invalid">
+                {{editMode ? 'Edit Book' : 'Create New Book'}}
+            </ion-button>
+        </div>
+    </form>
+</ion-content>
