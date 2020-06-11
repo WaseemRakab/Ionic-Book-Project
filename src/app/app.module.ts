@@ -16,7 +16,6 @@ import {EffectsModule} from '@ngrx/effects';
 import * as reducers from './store/app.reducer';
 import {BookEffects} from './books/book-store/book.effects';
 import {HttpClientModule} from '@angular/common/http';
-import {IonicStorageModule} from '@ionic/storage';
 
 @NgModule({
     declarations: [
@@ -29,10 +28,6 @@ import {IonicStorageModule} from '@ionic/storage';
         IonicModule.forRoot(),
         AppRoutingModule,
         HttpClientModule,
-        IonicStorageModule.forRoot({
-            name: 'store',
-            driverOrder: ['localstorage', 'indexeddb']
-        }),
         StoreModule.forRoot(reducers.AppReducer),
         StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
         EffectsModule.forRoot([BookEffects])
